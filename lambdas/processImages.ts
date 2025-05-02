@@ -20,7 +20,7 @@ export const handler: SQSHandler = async (event) => {
     const s3Info = body.Records?.[0]?.s3;
 
     if (!s3Info) {
-      console.log("No S3 info in message");
+      console.log("No message");
       continue;
     }
 
@@ -28,7 +28,7 @@ export const handler: SQSHandler = async (event) => {
     const ext = objectKey.slice(objectKey.lastIndexOf(".")).toLowerCase();
 
     if (!allowedExtensions.includes(ext)) {
-      console.log(`Unsupported file type: ${ext}`);
+      console.log(`File types not supported: ${ext}`);
       throw new Error("Unsupported file type");
     }
 
