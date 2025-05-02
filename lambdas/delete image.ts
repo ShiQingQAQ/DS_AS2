@@ -9,7 +9,7 @@ export const handler: SQSHandler = async (event) => {
     const s3Info = body.Records?.[0]?.s3; 
 
     if (!s3Info) {
-      console.log("Invalid S3 info");
+      console.log("Invalid S3bucket info");
       continue;
     }
 
@@ -18,9 +18,9 @@ export const handler: SQSHandler = async (event) => {
 
     try {
       await s3.send(new DeleteObjectCommand({ Bucket: bucket, Key: key })); 
-      console.log(`Deleted invalid image: ${key}`); 
+      console.log(`Delete wrong image: ${key}`); 
     } catch (err) {
-      console.error(`Failed to delete image: ${key}`, err); 
+      console.error(`Image Deletion Failed: ${key}`, err); 
     }
   }
 };
